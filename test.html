@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Infovis Project - Marco Cappello 418680</title>
+  <script type='text/javascript' src="script/d3.min.js"></script>
+
+</head>
+<body>
+  <h2>Progetto InfoVis - Marco Cappello 418680</h2>
+  <h3>Disegna 30 quadrifogli (è sufficiente la silhouette) che si si muovono allontanandosi dalla posizione corrente del mouse (le sovrapposizioni sono permesse). Quando una figurella arriva a pochi millimetri dal bordo del disegno scompare e ricompare vicino alla posizione corrente del mouse.</h3>
+
+  <script>
+
+	var svgContainer = d3.select("body")
+  									.append("svg")
+                                    .attr("width", 800)
+                                    .attr("height", 600)
+                                    .style("border", "1");
+
+ var clover = svgContainer.append("image")
+  .attr("width",50)
+  .attr("height",50)
+  .attr("y", 0)
+  .attr("x", 0)
+  .attr("xlink:href","img/clover.svg")
+  .attr("fill", "black");
+
+
+
+  </script>
+</body>
+</html>
