@@ -1,2 +1,0 @@
-# infoVis
-homework infoVis

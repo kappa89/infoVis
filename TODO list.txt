@@ -1,8 +1,3 @@
 TODO list
-generare punto x,y interno allo schermo considerando dimensione quadrifogli.
-generare 30 quadrifogli
-	dimensioni diverse
-	ruotati diversamente
-	colori diversi
-allontanare qudrifogli da mouse
-quando quadrifoglio tocca bordo, scompare e ricompare sul mouse
+generare cerchio
+funzione per muoverlo in direzione opposta al mouse.
