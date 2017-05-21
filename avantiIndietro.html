@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Infovis Project - Marco Cappello 418680</title>
+  //<script type='text/javascript' src="script/d3.js"></script>
+  <script src="script/d3.v4.js"></script>
+
+</head>
+<body>
+  <h2>Progetto InfoVis - Marco Cappello 418680</h2>
+  <h3>Disegna 30 quadrifogli (è sufficiente la silhouette) che si si muovono allontanandosi dalla posizione corrente del mouse (le sovrapposizioni sono permesse). Quando una figurella arriva a pochi millimetri dal bordo del disegno scompare e ricompare vicino alla posizione corrente del mouse.</h3>
+
+  <script>
+ var width = 640,
+     height = 480;
+
+var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var circle = svg.append("circle")
+    .attr("cx", 20)
+    .attr("cy", 20)
+    .attr("r", 20);
+
+svg.on("mousemove", function() {
+  var p = d3.mouse(this);
+  var px = p[0];
+  var py = p[1];
+});
+
+function myTransf() {
+		circle.transition()
+          .duration(1400)
+   			  .attr('cx', width-20).style("opacity", "0.5")
+          .style("fill", "red")
+          .on("end", myCallback);   
+}
+
+function myCallback(d){
+		circle.transition()
+          .duration(750)
+   			  .attr('cx', function(d){return d.x + 100})
+          .style("opacity", "1")
+          .style("fill", "blue")
+          .on("end", myTransf);
+}
+
+myTransf();
+   </script>
+</body>

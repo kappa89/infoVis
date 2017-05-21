@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <head>
   <title>Infovis Project - Marco Cappello 418680</title>
-  <script type='text/javascript' src="script/d3.min.js"></script>
+  <script type='text/javascript' src="script/d3.js"></script>
 
 </head>
 <body>
@@ -22,6 +22,11 @@
                              "y_axis": getRandomInt(radius, height-radius),
                              "radius": 20,
                              "color" : "red"
+                            },
+                            { "x_axis": getRandomInt(radius, width-radius),
+                             "y_axis": getRandomInt(radius, height-radius),
+                             "radius": 50,
+                             "color" : "blue"
                             }];
 
         var svg = d3.select("body").append("svg")
@@ -38,10 +43,14 @@
 
         function ciccio(d) { 
             var mousePosition = d3.mouse(this);
-            
-            d3.select(this).attr('cx', (cx + mousePosition[0]))
-                           .attr('cy', (cy + mousePosition[1]));
-        }
+            var objPosition = d3.select(this);
+            console.log(objPosition);
+             objPosition.transition()
+                            .attr("delay", function(d) { return 1000 })
+                            .attr("duration", function(d){return 1000})
+                            .attr("cx", function(d){return mousePosition[0]})
+                            .attr("cy", function(d){return mousePosition[1]});
+                            }
         
         //function mouseover(d){d3.select(this).attr('cx', 10);}
         /*function moveX(d){
