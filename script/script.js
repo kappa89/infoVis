@@ -5,7 +5,7 @@ function getRealSVGDimensions(){
 	var svgPercH = svg.attr("height").slice(0, -1);
 	var svgPercW = svg.attr("width").slice(0, -1);
 
-	return {"H":(winH*(svgPercH/100.0))-50, "W": (winW*(svgPercW/100.0))-50};
+	return {"H":(winH*(svgPercH/100.0)), "W": (winW*(svgPercW/100.0))};
 }
 
 var svgDimensions = getRealSVGDimensions();
@@ -49,14 +49,14 @@ function setCenter(index)
 force.on("tick", function(e) {
  svg.selectAll("image")
       .attr("x", function(d, i) {
-          if((d.x > (width - flowerRadius)) || d.x < 0)
+          if((d.x > (width - flowerRadius*1.5)) || d.x < 0)
           {
               return setCenter(i);
           }
           return d.x;
         })
       .attr("y", function(d, i) {
-         if(d.y > (height-flowerRadius) || d.y < 0)
+         if(d.y > (height-flowerRadius*1.5) || d.y < 0)
          {
               return setCenter(i);
           }
