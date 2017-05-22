@@ -1,4 +1,6 @@
 var svg = d3.select("svg");
+
+//funzione per restituire valori dell'SVG adattato alla pagina
 function getRealSVGDimensions(){
 	var winH = window.innerHeight;
 	var winW = window.innerWidth;
@@ -12,51 +14,59 @@ var svgDimensions = getRealSVGDimensions();
 
 var width = svgDimensions.W,
     height = svgDimensions.H;
-var numberOfFlowers = 30;
-var flowerRadius = 30;
-var globalCenter = [width/2.0,
+
+var numberOfFlowers = 30; //numero di quadrifogli
+var flowerDimension = 30; //dimensione quadrifoglio
+var globalCenter = [width/2.0, //centro in cui riposiziono i quadrifogli
                     height/2.0];
+var fixScale = 1.5;
 
 var nodes = d3.range(numberOfFlowers+1).map(function() { return {}; }),
-    root = nodes[0];
+    root = nodes[0]; //mouse
 
-root.radius = 50;
+root.radius = 100;
 root.fixed = true;
 
-var force = d3.layout.force()
+var force = d3.layout.force() //tuning della forza
     .gravity(0.0)
-    .charge(function(d,i){return i ? -0.01 : -500;})
+    .charge(function(d,i){return i ? -10 : -500;})
     .nodes(nodes)
     .size([width, height]);
 
-force.start();
+force.start(); //use the force luke!
 
 svg.selectAll("image")
     .data(nodes.slice(1)) //no root
     .enter().append("svg:image")
     .attr("xlink:href", "img/clover.svg")
-    .attr("height", flowerRadius);
+    .attr("height", flowerDimension);
 
-function setCenter(index)
+//funzione per traslare i quadrifogli al centro
+function setCenter(index) 
 {
-    index = index + 1;
+    index++;
+    
     nodes[index].x = globalCenter[0];
-    nodes[index].y = globalCenter[1];
     nodes[index].px = globalCenter[0];
+    
+    nodes[index].y = globalCenter[1];
     nodes[index].py = globalCenter[1];
+    
 }
 
+//funzione per delimitare i quadrifogli dentro l'area
 force.on("tick", function(e) {
  svg.selectAll("image")
       .attr("x", function(d, i) {
-          if((d.x > (width - flowerRadius*1.5)) || d.x < 0)
+          if((d.x > (width - flowerDimension*fixScale)) || d.x < 0)
           {
+              d.opacity = 0;
               return setCenter(i);
           }
           return d.x;
         })
       .attr("y", function(d, i) {
-         if(d.y > (height-flowerRadius*1.5) || d.y < 0)
+         if(d.y > (height-flowerDimension*fixScale) || d.y < 0)
          {
               return setCenter(i);
           }
@@ -64,6 +74,7 @@ force.on("tick", function(e) {
     });
 });
 
+//funzione posizione del mouse
 svg.on("mousemove", function() {
   var p1 = d3.mouse(this);
   root.px = p1[0];
